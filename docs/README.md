@@ -30,6 +30,7 @@
  ### Webpack
   [Webpack](https://webpack.js.org/)
  ### Parcel
+  [Parcel](https://parceljs.org/)
  ## Transpilers
  Transpilers convert one programming language into a new programming language with the same level of abstraction.
 We want to use the latest syntax(eg ES6) but the browsers are not ready yet. Same applies for TypeScript.
