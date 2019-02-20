@@ -22,12 +22,16 @@
  npx eslint
  ```
 
-
- **Prettier** is another popular linting tool
+::: tip
+**Prettier** is another popular linting tool
+:::
+ 
  ## Bundlers
  ### Webpack
+  [Webpack](https://webpack.js.org/)
  ### Parcel
  ## Transpilers
-```bash
-npm install
-```
+ Transpilers convert one programming language into a new programming language with the same level of abstraction.
+We want to use the latest syntax(eg ES6) but the browsers are not ready yet. Same applies for TypeScript.
+
+A very popular transpiler is  **Babel**
