@@ -8,7 +8,7 @@ Linting tools analyse the code for potential errors , they can also enforce codi
 
 **ESlint** is the dominant linting tool for JavaScript.
 
-#### 💻Exercise
+#### 💻 Exercise
 
 Include ESlint as part of the project
 
@@ -39,6 +39,107 @@ Bundlers combine and optimize multiple modules/files into one or more production
 ### Webpack
 
 It grabs all the app's files : JavaScript, CSS, images, fonts ... and create a big map of everything that's needed(dependency graph). From this it generates the bundler files.
+
+What can you do with webpack
+
+- hot module replacement
+- lazy loading
+- cashing
+
+Things to know in order to configure Webpack :
+
+- **Entry point** - Webpack needs to know what is the start file to build the dependency graph from
+- **Output** - where Webpack should create the bundle(s) and what to call them
+- **Loaders** - They just transform files. Webpack knows by default how to transform JavaScript, loaders tell it how to transform other types of files CSS, SCSS, images,SVGs
+  - _"test"_ properties identify the files to transform
+  - _"use"_ properties specify which loader to use
+- **Plugins** - they can optimize bundlers, manage assets and injecting environment variables
+
+:::tip
+Basically everything is a plugin in Webpack
+:::
+
+#### 💻 Exercise
+
+Install webpack
+
+```bash
+npm install webpack webpack-cli --save-dev
+```
+
+Then create the bundle by running
+
+```bash
+npx webpack
+```
+
+Create `webpack.config.js`
+
+```javascript
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  }
+};
+```
+
+In `package.json` add
+
+```json
+...
+"build":'webpack'
+...
+
+```
+
+Add `CSS` loader
+
+```javascript
+module: {
+  rules: [{test: /\.css$/, use: 'css-loader'}];
+}
+```
+
+change the `webpack.config.js`
+
+```javascript
+const webpack = require('webpack')
+...
+plugins: [
+    new webpack.ProgressPlugin()
+  ]
+```
+
+Hot module replacement
+
+```javascript
+ devServer: {
+      contentBase: './dist',
+     hot: true
+    }
+ ...
+ plugins:[ new webpack.HotModuleReplacementPlugin()]
+```
+
+⚠️ We'll come back to this example after talking about Transpilers
+
+```javascript
+module: {
+  loaders: [
+    {
+      test: /\.js$/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['es2015']
+      }
+    }
+  ];
+}
+```
 
 🐨 For more information check [Webpack](https://webpack.js.org/)
 
@@ -89,10 +190,32 @@ Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a
 npm install --save-dev @babel/core @babel/cli
 ```
 
-Then transpile the file
+Then transpile the file, first install the arrow functions plugin
 
 ```bash
-babel index.js
+npm install --save-dev @babel/plugin-transform-arrow-functions
+npx babel --plugins @babel/plugin-transform-arrow-functions src/index.js
+```
+
+You can also create a `babel.config.js` and add it to the `package.json`
+
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+
+  const presets = [ ... ];
+  const plugins = [ ... ];
+
+  return {
+    presets,
+    plugins
+  };
+}
 ```
 
 🐨 For more information check [Babel](https://babeljs.io/)
+
+## 📚 Resources
+
+- [Understanding Webpack from inside out](https://www.youtube.com/watch?v=gEBUU6QfVzk)
+- [Configuring Babel 7](https://www.youtube.com/watch?v=Tv4n_3zETHc)
