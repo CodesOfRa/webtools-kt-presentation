@@ -1,5 +1,5 @@
 module.exports = {
     title: 'Tools for modern development',
     description: 'Talking about ESlint , webpack and babel ',
-    base: '/WebTools-KT/'
+    base: '/webtools-kt-presentation/'
 }
