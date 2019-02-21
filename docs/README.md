@@ -127,14 +127,21 @@ Hot module replacement
 
 ⚠️ We'll come back to this example after talking about Transpilers
 
+```bash
+npm install -D babel-loader @babel/core @babel/preset-env webpack
+```
+
 ```javascript
 module: {
-  loaders: [
+  rules: [
     {
-      test: /\.js$/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015']
+      test: /\.m?js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
       }
     }
   ];
